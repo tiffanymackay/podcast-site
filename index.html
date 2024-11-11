@@ -4,11 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopify Masters Podcast</title>
+    
+    <!-- Font Preconnect and Import -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+
     <style>
         body {
-            background-color: #f4f4f4;
+            background-color: #ffffff;
             color: #333;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Host Grotesk', sans-serif;
             margin: 0;
             padding: 0;
         }
@@ -18,38 +24,30 @@
             align-items: center;
             padding: 20px 40px;
             background-color: #ffffff;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid #e0e0e0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
         .logo {
             font-size: 1.5em;
             font-weight: bold;
-            color: #96bf48; /* Shopify green */
+            color: #96bf48;
         }
         nav a {
             margin: 0 15px;
             text-decoration: none;
             color: #333;
-            position: relative;
-        }
-        nav a:hover::after {
-            content: '';
-            display: block;
-            width: 100%;
-            height: 2px;
-            background: #96bf48; /* Shopify green */
-            position: absolute;
-            bottom: -5px;
-            left: 0;
+            font-weight: 500;
         }
         h1 {
-            font-family: 'Georgia', serif;
-            font-size: 3em;
+            font-size: 2.5em;
             margin: 20px 0;
-            text-align: center;
+            text-align: left;
             color: #333;
         }
         h2 {
-            font-size: 1.5em;
+            font-size: 1.2em;
             text-align: center;
             color: #6c757d;
         }
@@ -59,51 +57,112 @@
             padding: 20px;
             background-color: #ffffff;
             border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        .button {
-            display: inline-block;
-            background-color: #96bf48; /* Shopify green */
-            color: white;
-            padding: 12px 24px;
-            text-decoration: none;
-            border-radius: 25px;
-            font-weight: bold;
-            transition: background-color 0.3s;
-            margin-top: 20px;
-            text-align: center;
-        }
-        .button:hover {
-            background-color: #7da639; /* Darker green */
+            border: 1px solid #e0e0e0;
+            text-align: left;
         }
         .podcast-card {
             background-color: #ffffff;
             border-radius: 10px;
             padding: 15px;
-            margin: 10px 0;
+            margin: 15px 0;
             display: flex;
             align-items: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
+        }
+        .podcast-card:hover {
+            transform: translateY(-3px);
         }
         .podcast-card img {
             border-radius: 10px;
-            width: 100px;
-            height: 100px;
-            margin-right: 15px;
+            width: 80px;
+            height: 80px;
+            margin-right: 20px;
+        }
+        .podcast-details {
+            flex: 1;
+        }
+        .podcast-details h3 {
+            margin: 0;
+            font-size: 1.2em;
+            color: #333;
+        }
+        .podcast-details p {
+            margin: 5px 0;
+            color: #6c757d;
+        }
+        .button {
+            display: inline-block;
+            background-color: #96bf48;
+            color: white;
+            padding: 10px 25px;
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            border: 1px solid #6c757d;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #7da639;
+            border: 2px solid #ffffff;
+        }
+        #view-more {
+            display: block;
+            margin: 20px auto;
         }
         .footer {
             text-align: center;
             padding: 20px;
             background-color: #ffffff;
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            border-top: 1px solid #e0e0e0;
             margin-top: 40px;
         }
         .footer a {
             margin: 0 10px;
             color: #6c757d;
             text-decoration: none;
+            font-size: 0.9em;
+            padding: 0;
+        }
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            nav {
+                margin-top: 10px;
+            }
+            .podcast-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .podcast-card img {
+                margin-bottom: 10px;
+            }
+        }
+        .hero {
+            background-color: #F6F6F0;
+            padding: 40px 20px;
+        }
+        .hero-container {
+            display: flex;
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto;
+            gap: 40px;
+        }
+        .hero-content {
+            flex: 1;
+            text-align: left;
+
+        }
+        .hero-image {
+            width: 30%;
+            height: auto;
+            object-fit: cover;
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <header>
@@ -115,67 +174,108 @@
             <a href="#contact">Contact</a>
         </nav>
     </header>
-    <h1>Shopify Masters Podcast</h1>
-    <h2>Insightful weekly conversations with entrepreneurs and industry experts</h2>
-    <div class="content-section" id="podcast-episodes">
-        <p>Loading episodes...</p>
-    </div>
+
+    <main>
+        <div class="hero">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1>Welcome to the Shopify Masters Podcast</h1>
+                    <p>Join us for insightful weekly conversations with entrepreneurs and industry experts. Discover the stories behind successful businesses and learn valuable lessons to help you grow your own.</p>
+                    <button class="button" id="hero-button" onclick="document.getElementById('latest-episodes').scrollIntoView({ behavior: 'smooth' });">Listen Now</button>
+                </div>
+                <img src="https://image.simplecastcdn.com/images/d906b7c3-bcea-4efe-93ee-3b038c2d6c47/d00e28a3-7232-4807-bdb5-33ea5a1bcc16/3000x3000/generic-tile-merchant-1.jpg?aid=rss_feed" alt="Podcast Hero Image" class="hero-image">
+            </div>
+        </div>
+        <div class="content-section" id="latest-episodes">
+            <h2>Latest Episodes</h2>
+            <div id="podcast-episodes"></div>
+            <center><button id="view-more" class="button" style="display: none;">View More</button></center>
+        </div>
+    </main>
+
     <footer class="footer">
-        <p>© 2023 Shopify Masters. All rights reserved.</p>
-        <a href="#privacy">Privacy Policy</a>
-        <a href="#terms">Terms of Service</a>
+        <p>Designed and coded by Frontend Developer Tiffany Mackay.<br>© 2024 Tiffany Mackay</p>
+        <a href="https://github.com/tiffanymackay/podcast-site" target="_blank">GitHub</a>
+        <a href="#latest-episodes">Latest Episodes</a>
+        <a href="https://shopify-masters.simplecast.com/" target="_blank">Podcast Website</a>
     </footer>
 
     <script>
-        const clientId = 'YOUR_CLIENT_ID';
-        const clientSecret = 'YOUR_CLIENT_SECRET';
-        const podcastId = 'YOUR_PODCAST_ID'; // Replace with your podcast ID
+        let allEpisodes = [];
+        let displayedEpisodes = 10;
 
-        async function fetchAccessToken() {
-            const response = await fetch('https://accounts.spotify.com/api/token', {
-                method: 'POST',
-                headers: {
-                    'Authorization': 'Basic ' + btoa(clientId + ':' + clientSecret),
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: 'grant_type=client_credentials'
-            });
-            const data = await response.json();
-            return data.access_token;
-        }
-
-        async function fetchEpisodes() {
-            const token = await fetchAccessToken();
-            const response = await fetch(`https://api.spotify.com/v1/shows/${podcastId}/episodes`, {
-                headers: {
-                    'Authorization': 'Bearer ' + token
-                }
-            });
-            const data = await response.json();
-            return data.items;
-        }
-
-        async function displayEpisodes() {
-            const episodes = await fetchEpisodes();
+        function fetchPodcastEpisodes() {
             const container = document.getElementById('podcast-episodes');
-            container.innerHTML = ''; // Clear loading text
+            const rssFeedUrl = 'https://feeds.simplecast.com/_Mc9bpsL';
 
-            episodes.forEach(episode => {
-                const episodeCard = document.createElement('div');
-                episodeCard.className = 'podcast-card';
-                episodeCard.innerHTML = `
-                    <img src="${episode.images[0].url}" alt="${episode.name}">
-                    <div>
-                        <h3>${episode.name}</h3>
-                        <p>${new Date(episode.release_date).toLocaleDateString()}</p>
-                        <a href="${episode.external_urls.spotify}" class="button">Play</a>
+            axios.get(rssFeedUrl)
+                .then(response => {
+                    const data = response.data;
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(data, "text/xml");
+                    const items = xmlDoc.getElementsByTagName('item');
+
+                    allEpisodes = Array.from(items).map(item => {
+                        const title = item.getElementsByTagName('title')[0].textContent;
+                        const pubDate = item.getElementsByTagName('pubDate')[0].textContent;
+                        const link = item.getElementsByTagName('link')[0].textContent;
+
+                        const imageElement = item.getElementsByTagName('itunes:image')[0];
+                        const imageUrl = imageElement ? imageElement.getAttribute('href') : null;
+
+                        const finalImageUrl = imageUrl || 
+                            'https://image.simplecastcdn.com/images/d906b7c3-bcea-4efe-93ee-3b038c2d6c47/d00e28a3-7232-4807-bdb5-33ea5a1bcc16/3000x3000/generic-tile-merchant-1.jpg?aid=rss_feed';
+
+                        return {
+                            title,
+                            pubDate,
+                            link,
+                            imageUrl: finalImageUrl
+                        };
+                    });
+
+                    displayEpisodes();
+                })
+                .catch(error => {
+                    console.error('Error fetching the RSS feed:', error);
+                    container.innerHTML = '<p>Failed to load episodes.</p>';
+                });
+        }
+
+        function displayEpisodes() {
+            const container = document.getElementById('podcast-episodes');
+            const viewMoreButton = document.getElementById('view-more');
+
+            const episodesToDisplay = allEpisodes.slice(0, displayedEpisodes);
+            let html = '';
+            episodesToDisplay.forEach(episode => {
+                html += `
+                    <div class="podcast-card">
+                        <img src="${episode.imageUrl}" alt="Episode Cover">
+                        <div class="podcast-details">
+                            <h3>${episode.title}</h3>
+                            <p>${new Date(episode.pubDate).toLocaleDateString()}</p>
+                            <button class="button" onclick="window.open('${episode.link}', '_blank');">Play</button>
+                        </div>
                     </div>
                 `;
-                container.appendChild(episodeCard);
             });
+
+            container.innerHTML = html;
+
+            if (displayedEpisodes < allEpisodes.length) {
+                viewMoreButton.style.display = 'inline-block';
+            } else {
+                viewMoreButton.style.display = 'none';
+            }
         }
 
-        displayEpisodes();
+        document.getElementById('view-more').addEventListener('click', () => {
+            displayedEpisodes += 10;
+            displayEpisodes();
+        });
+
+        fetchPodcastEpisodes();
     </script>
 </body>
 </html>
